@@ -1,10 +1,11 @@
-import json
+import json, os
 
 def get_array_URL_checked () :
   arrayURL = []
-  for source in create_data/sources :
+  data = json.loads(open('create_data/sources.json').read())
+  for source in data['sources'] :
     arrayURL.append(source['url'])
   return arrayURL
 
-arrayURLS = get_array_URL_checked
-print (arrayURLS)
+arrayURL = get_array_URL_checked()
+print (arrayURL)
