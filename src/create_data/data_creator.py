@@ -8,12 +8,13 @@ def get_data_file() :
     filename = os.path.join(current_dir, "../..", "data")
     return filename
 
-def get_data() :
+def get_data(c) :
     # Init
     newsapi = NewsApiClient(api_key='279f7ab6ee464ec38f52a95f14f79c5d')
 
     # /v2/sources
-    sources = newsapi.get_sources(country='us')
+    # , au, ca, nz, gb
+    sources = newsapi.get_sources(country=c)
 
     sources = sources['sources']
     arraySources = []
@@ -26,9 +27,14 @@ def get_data() :
     for s in arraySources :
         print("Getting articles for source : {}".format(counter))
         counter += 1
-        jsonSource = newsapi.get_everything(sources = s, sort_by = 'relevancy')
+        jsonSource = newsapi.get_everything(sources = s)
+        articles = jsonSource['articles']
         url = dataPath + "/"+ s + '.json'
         with open(url, 'w') as outfile:
             json.dump(jsonSource, outfile)
 
-get_data()
+
+countries = ['us', 'au', 'ca', 'nz', 'gb']
+for c in countries :
+    print("getting data for country : ".format(c))
+    get_data(c)
