@@ -39,10 +39,12 @@ def output_json(d) :
 	f = open('current.json', 'w')
 	print(j, file = f)
 	f.close()
+	return f
 
 def main(url):
 	soup = get_soup(url)
-	output_json(parse_soup(soup))
+	file_name = output_json(parse_soup(soup))
+	return file_name
 
 if __name__ == "__main__" :
 	main()
