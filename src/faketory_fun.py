@@ -1,4 +1,5 @@
 # Author : Milo Sobral
+#  Zoe Lapomme
 # Main script to check an article from an url
 from extension/webscraper import . as ws
 import extension/webscraper as webscraper
@@ -56,7 +57,4 @@ def output_score_to_extension (score) :
 def main () :
     file_to_evaluate = get_json_file(get_url())
     #make model with words
-    #evaluate the json file that we are testing
-    score = get_final_score (get_spell_check_score(file_to_evaluate), get_reliability_score(file_to_evaluate), get_bias_score(file_to_evaluate), get_URL_recognizer_score(file_to_evaluate))
-    #output score
-    output_score_to_extension(score)
+    #evaluate the json file that we are
