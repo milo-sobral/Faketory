@@ -39,6 +39,8 @@ This code took me about an hour to write and test. It works on Python
 2.7 as well as Python 3.x.
 """
 
+# MODIFIED BY Milo Sobral
+
 import collections
 import re
 import sys
@@ -49,7 +51,11 @@ def tokenize(string):
     """Convert string to lowercase and split into words (ignoring
     punctuation), returning list of words.
     """
-    return re.findall(r'\w+', string.lower())
+    out_string = ""
+    array = string.split( )
+    for word in array:
+        out_string += re.sub(r'[\W]', '', word) + " "
+    return out_string.split()
 
 
 def count_ngrams(lines, min_length=2, max_length=4):

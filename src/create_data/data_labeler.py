@@ -274,7 +274,7 @@ def getBias (files) :
             bias [s] = 0
         elif s == "independent.json" :
             bias [s] = 2
-        elif s == "maschable.json" :
+        elif s == "mashable.json" :
             bias [s] = 0
         elif s == "medical-news-today.json" :
             bias [s] = 0
