@@ -19,6 +19,8 @@ from os.path import isfile, join
 import data_labeler as dl
 import ngrams as ng
 
+MAX_NGRAMS = 10
+
 def get_data_file() :
     current_dir = os.path.abspath(os.path.dirname(__file__))
     filename = os.path.join(current_dir, "../..", "data")
@@ -49,16 +51,16 @@ def get_ngrams_rel(filter):
     path = get_data_file() + "/"
     files = [f for f in listdir(path) if isfile(join(path, f))]
     listRel = [
-        dict(string = '', ngrams = dict(), rel = 0),
-        dict(string = '', ngrams = dict(), rel = 1),
-        dict(string = '', ngrams = dict(), rel = 2),
-        dict(string = '', ngrams = dict(), rel = 3),
-        dict(string = '', ngrams = dict(), rel = 4),
-        dict(string = '', ngrams = dict(), rel = 5),
-        dict(string = '', ngrams = dict(), rel = 6),
-        dict(string = '', ngrams = dict(), rel = 7),
-        dict(string = '', ngrams = dict(), rel = 8),
-        dict(string = '', ngrams = dict(), rel = 9)
+        dict(string = '', ngrams = [], rel = 0),
+        dict(string = '', ngrams = [], rel = 1),
+        dict(string = '', ngrams = [], rel = 2),
+        dict(string = '', ngrams = [], rel = 3),
+        dict(string = '', ngrams = [], rel = 4),
+        dict(string = '', ngrams = [], rel = 5),
+        dict(string = '', ngrams = [], rel = 6),
+        dict(string = '', ngrams = [], rel = 7),
+        dict(string = '', ngrams = [], rel = 8),
+        dict(string = '', ngrams = [], rel = 9)
     ]
     dictRel = dl.getReliability(files)
     for file in files :
@@ -70,18 +72,22 @@ def get_ngrams_rel(filter):
         rel = dictRel[file]
         listRel[rel]['string'] += data
     for d in listRel :
-        d['ngrams'] = ng.count_ngrams(io.StringIO(d['string']), min_length=2, max_length=5)
+        d['ngrams'] = ng.return_most_frequent((ng.count_ngrams(io.StringIO(d['string']), min_length=2, max_length=7)), MAX_NGRAMS)
+
+    if "string" in listRel:
+        del listRel["string"]
+
     return listRel
 
 def get_ngrams_bias(filter) :
     path = get_data_file() + "/"
     files = [f for f in listdir(path) if isfile(join(path, f))]
     listBias = [
-        dict(string = '', ngrams = dict(), bias = 0),
-        dict(string = '', ngrams = dict(), bias = 1),
-        dict(string = '', ngrams = dict(), bias = 2),
-        dict(string = '', ngrams = dict(), bias = 3),
-        dict(string = '', ngrams = dict(), bias = 4),
+        dict(string = '', ngrams = [], bias = 0),
+        dict(string = '', ngrams = [], bias = 1),
+        dict(string = '', ngrams = [], bias = 2),
+        dict(string = '', ngrams = [], bias = 3),
+        dict(string = '', ngrams = [], bias = 4),
     ]
     dictBias = dl.getBias(files)
     for file in files :
@@ -95,7 +101,11 @@ def get_ngrams_bias(filter) :
             continue
         listBias[bias]['string'] += data
     for d in listBias :
-        d['ngrams'] = ng.count_ngrams(io.StringIO(d['string']), min_length=2, max_length=5)
+        d['ngrams'] = ng.return_most_frequent((ng.count_ngrams(io.StringIO(d['string']), min_length=2, max_length=7)), MAX_NGRAMS)
+
+    if "string" in listBias:
+        del listBias["string"]
+
     return listBias
 
 def main() :

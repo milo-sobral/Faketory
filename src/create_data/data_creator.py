@@ -53,4 +53,6 @@ def main() :
 
 
 if __name__ == "__main__" :
-    main()
+    dict = main()
+    with open('sources1.json', 'w') as outfile :
+        json.dump(dict, outfile)
