@@ -14,11 +14,9 @@ def get_data_file() :
 
 def get_data(c) :
     # Init
-    newsapi = NewsApiClient(api_key='279f7ab6ee464ec38f52a95f14f79c5d')
-
+    newsapi = NewsApiClient(api_key='e74ca84a910749b08b7e34aca0e12ee3')
     # /v2/sources
     sources = newsapi.get_sources(country = c)
-
     sources = sources['sources']
     arraySources = []
     arrayURL = []
@@ -36,8 +34,11 @@ def get_data(c) :
         with open(url, 'w') as outfile:
             json.dump(jsonSource, outfile)
 
+def main() :
+    countries = ['us', 'au', 'ca', 'nz', 'gb']
+    for c in countries :
+        print("getting data for country : ".format(c))
+        get_data(c)
 
-countries = ['us', 'au', 'ca', 'nz', 'gb']
-for c in countries :
-    print("getting data for country : ".format(c))
-    get_data(c)
+if __name__ == "__main__" :
+    main()

@@ -43,3 +43,6 @@ def output_json(d) :
 def main(url):
 	soup = get_soup(url)
 	output_json(parse_soup(soup))
+
+if __name__ == "__main__" :
+	main()
