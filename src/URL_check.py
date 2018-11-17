@@ -4,9 +4,16 @@ def get_array_URL_checked () :
   arrayURL = []
   data = json.loads(open('create_data/sources.json').read())
   for source in data['sources'] :
-    #string_to_add = source['url']
-    #if (source_url[6] == '/')
-    arrayURL.append(source['url'])
+    source_url = source['url']
+    string_to_add = ""
+    length = len(source_url)
+    if source_url[6] == '/' :
+        string_to_add = source_url[7:length]
+    elif source_url[7] == '/' :
+        string_to_add = source_url [8:length]
+    else :
+        string_to_add = source_url
+    arrayURL.append(string_to_add)
   return arrayURL
 
 def check_URL (URL_to_check, arrayURL) :
@@ -25,5 +32,5 @@ def check_URL (URL_to_check, arrayURL) :
 
 #def main ():
 arrayURL = get_array_URL_checked()
-URL = check_URL ("http://www.nytimes.com/", arrayURL)
+URL = check_URL ("foxnews", arrayURL)
 print (URL)
