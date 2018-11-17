@@ -50,7 +50,7 @@ def get_final_score (spell_check_score, reliability_score, bias_score, URL_recog
 
 
 def output_score_to_extension (score) :
-    #output score to extension
+    #output score to extension 
 
 
 def main () :
