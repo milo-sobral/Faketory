@@ -33,4 +33,10 @@ def check_URL (URL_to_check, arrayURL) :
 #def main ():
 arrayURL = get_array_URL_checked()
 URL = check_URL ("foxnews", arrayURL)
+score = 0
+if URL == "no_URL_found" :
+    break
+else :
+    score = URLscore (URL)
+
 print (URL)
