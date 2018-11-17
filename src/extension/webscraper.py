@@ -43,8 +43,9 @@ def output_json(d) :
 
 def main(url):
 	soup = get_soup(url)
-	file_name = output_json(parse_soup(soup))
-	return file_name
+	d = parse_soup(soup)
+	output_json(d)
+	return d
 
 if __name__ == "__main__" :
 	main()
