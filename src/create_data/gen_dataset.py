@@ -111,7 +111,8 @@ def get_ngrams_bias(filter) :
 def main() :
     rel = get_ngrams_rel(True)
     bias = get_ngrams_bias(True)
-    return rel, bias
+    print(rel)
+    print(bias)
 
 if __name__ == "__main__" :
     main()

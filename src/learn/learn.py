@@ -1,13 +1,7 @@
 # Author :
 #  - Milo Sobral
 #  - Zoe Lapomme
-# import re
-# import nltk
-# from sklearn.feature_extraction.text
-# import TfidfVectorizer from sklearn.metrics
-# import classification_report
-# from sklearn import svm
-# import ../create_data/gen_dataset as gd
+
 import sys
 sys.path.insert(0, '../create_data')
 import gen_dataset as gd
@@ -48,13 +42,13 @@ def get_features(listF, type):
         f['factor'] = fact / total
     return features
 
-def main() :
+def train() :
     dict1 = gd.get_ngrams_bias(True)
     f1 = get_features(dict1, 'bias')
     dict2 = gd.get_ngrams_rel(True)
     f2 = get_features(dict2, 'rel')
-    print(f1)
-    print(f2)
+    print(len(f2))
+    return f1, f2
 
 if __name__ == "__main__" :
-    main()
+    train()
