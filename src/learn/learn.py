@@ -1,12 +1,34 @@
 # Author :
 #  - Milo Sobral
 #  - Zoe Lapomme
-import re
-import nltk
-from sklearn.feature_extraction.text
-import TfidfVectorizer from sklearn.metrics
-import classification_report
-from sklearn import svm
+# import re
+# import nltk
+# from sklearn.feature_extraction.text
+# import TfidfVectorizer from sklearn.metrics
+# import classification_report
+# from sklearn import svm
+# import ../create_data/gen_dataset as gd
+import sys
+sys.path.insert(0, '../create_data')
+import gen_dataset as gd
+
+def get_features_bias(dict):
+    features = []
+    for d in dict :
+        tCount = 0
+        invRel = 1/(d['bias']+1)
+        
+
+def get_features_rel() :
+    return 0
+
+def main() :
+    dict = gd.get_ngrams_bias(True)
+    get_features_bias(dict)
+    get_features_rel()
+
+if __name__ == "__main__" :
+    main()
 
 # Removing Noise words
 # def remove_noise(input_text, noise_list):
@@ -83,15 +105,3 @@ from sklearn import svm
 #     model = svm.SVC(kernel='linear')
 #     model.fit(train_vectors, train_labels)
 #     prediction = model.predict(test_vectors)
-def get_features_bias() :
-    return 0
-
-def get_features_rel() :
-    return 0
-
-def main() :
-    get_features_bias()
-    get_features_rel()
-
-if __name__ == "__main__" :
-    main()
