@@ -95,7 +95,7 @@ def getReliability (files) :
             reliability [s] = 5
         elif s == "independent.json" :
             reliability [s] = 7
-        elif s == "maschable.json" :
+        elif s == "mashable.json" :
             reliability [s] = 3
         elif s == "medical-news-today.json" :
             reliability [s] = 7
@@ -274,7 +274,7 @@ def getBias (files) :
             bias [s] = 0
         elif s == "independent.json" :
             bias [s] = 2
-        elif s == "maschable.json" :
+        elif s == "mashable.json" :
             bias [s] = 0
         elif s == "medical-news-today.json" :
             bias [s] = 0
