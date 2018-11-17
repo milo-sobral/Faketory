@@ -95,7 +95,7 @@ def getReliability (files) :
             reliability [s] = 5
         elif s == "independent.json" :
             reliability [s] = 7
-        elif s == "maschable.json" :
+        elif s == "mashable.json" :
             reliability [s] = 3
         elif s == "medical-news-today.json" :
             reliability [s] = 7
