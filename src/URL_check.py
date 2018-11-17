@@ -6,23 +6,27 @@ import os
 from os import listdir
 from os.path import isfile, join
 
+#getting the URLs and removing the "http" part
 def get_array_URL_to_compare () :
   arrayURL = []
+  #getting the name of all the sources
   data = json.loads(open('create_data/sources1.json').read())
   for source in data['sources'] :
     source_url = source['url']
     string_to_add = ""
     length = len(source_url)
-    if source_url[6] == '/' :
-        string_to_add = source_url[7:length]
-    elif source_url[7] == '/' :
+    #removing "http://" or "https://"
+    if source_url[7] == '/' :
         string_to_add = source_url [8:length]
+    elif source_url[6] == '/' :
+        string_to_add = source_url[7:length]
     else :
         string_to_add = source_url
     arrayURL.append(string_to_add)
   return arrayURL
 
 
+#getting URL with the "http" part
 def get_array_URL_complete ():
     arrayURL = []
     data = json.loads(open('create_data/sources1.json').read())
@@ -31,6 +35,7 @@ def get_array_URL_complete ():
     return arrayURL
 
 
+#checking if URL has already been rated or not
 def check_URL (URL_to_check, arrayURL) :
     i = -1
     for url in arrayURL :
@@ -40,17 +45,19 @@ def check_URL (URL_to_check, arrayURL) :
             return i
     return -1
 
-
+#returning the score of the URL that was already given
 def URLscore (posURL, arrayURL) :
     URLname = arrayURL[posURL]
     name_file_score = ""
     name_file_score_complete = ""
     data = json.loads(open('create_data/sources1.json').read())
+    #determining the name of the associated file will be
     for source in data['sources'] :
         if source['url'] == URLname :
             name_file_score = source['id']
             name_file_score_complete = name_file_score + ".json"
             break
+
     mypath = data_labeler.get_data_file()
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
@@ -64,8 +71,6 @@ def URLscore (posURL, arrayURL) :
     scoresArray[1] = dicBias [name_file_score_complete]
 
     return scoresArray
-
-
 
 
 #def main ():
