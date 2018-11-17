@@ -73,15 +73,20 @@ def URLscore (posURL, arrayURL) :
     return scoresArray
 
 
-#def main ():
-arrayURL_comparison = get_array_URL_to_compare()
-arrayURL_complete = get_array_URL_complete()
-posURL = check_URL ("https://www.foxnews.com/politics/trump-on-cnns-jim-acosta-if-he-misbehaves-well-throw-him-out", arrayURL_comparison)
-score = []
-if posURL == -1 :
-    #return [-1,-1]
-    print (-1)
-else :
-    score = URLscore (posURL, arrayURL_complete)
-    #return scoreArray
-    print (score)
+def main (url):
+    #getting arrays with complete URL and with the easy comparion URL
+    arrayURL_comparison = get_array_URL_to_compare()
+    arrayURL_complete = get_array_URL_complete()
+    posURL = check_URL (url, arrayURL_comparison)
+
+    #returning an array where the first entry is the reliability score and the second is the bias score
+    score = [-1,-1]
+    if posURL == -1 :
+        return score
+    else :
+        score = URLscore (posURL, arrayURL_complete)
+        return scoreArray
+
+
+if __name__ == "__main__" :
+    main (url)
