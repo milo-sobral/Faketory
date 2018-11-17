@@ -44,8 +44,7 @@ def get_rel_score():
     dict1 = gd.get_ngrams_rel(True)
     f1 = l.get_features(dict1, 'rel')
 
-def calc():
-    dict = ws.main('https://www.bbc.com/news/world-europe-46233560')
+def calc(dict):
     string = get_string(dict)
     tokens = tokenize(string)
     score_bias = get_bias_score()
