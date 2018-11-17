@@ -1,3 +1,7 @@
+# Authors
+#  - Milo Sobral
+#  - Zoe Lapomme
+
 # create dataset for source labelling
 from newsapi import NewsApiClient
 import json
@@ -13,8 +17,7 @@ def get_data(c) :
     newsapi = NewsApiClient(api_key='279f7ab6ee464ec38f52a95f14f79c5d')
 
     # /v2/sources
-    # , au, ca, nz, gb
-    sources = newsapi.get_sources(country=c)
+    sources = newsapi.get_sources(country = c)
 
     sources = sources['sources']
     arraySources = []

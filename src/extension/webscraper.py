@@ -1,3 +1,7 @@
+# Authors :
+#  - Greg Woo
+#  - Milo Sobral
+
 import bs4 as bs
 import urllib.request
 import json
@@ -9,32 +13,33 @@ import sys
 
 # retrieve url in sauce
 # call beautifulsoup on soup to scrap text from website
-sauce = urllib.request.urlopen(sys.argv[1]).read()
-soup = bs.BeautifulSoup(sauce, 'lxml')
+def get_soup(url) :
+	sauce = urllib.request.urlopen(url).read()
+	soup = bs.BeautifulSoup(sauce, 'lxml')
+	return soup
 
-# loops are used to go through text and find a specific part of the html code
-tit = ""
-par = ""
-
-for title in soup.find_all('h1'):
-	#print (paragraph.text)
-	tit += (title.text)
-
-for para in soup.find_all('p'):
-	#print (paragraph.text)
-	par += (para.text)
-
-#print (tit)
-#print (par)
-
-# putting everything in a dictionnary
-d = {
-	'id' : tit,
-	'paragraph' : par
-}
+# parse test from source and return disctionary with info
+def parse_soup(soup) :
+	tit = ""
+	par = ""
+	for title in soup.find_all('h1'):
+		tit += (title.text)
+	for para in soup.find_all('p'):
+		par += (para.text)
+	# putting everything in a dictionnary
+	d = {
+		'id' : tit,
+		'paragraph' : par
+	}
+	return d
 
 # puts the dictionnary in a json file and create a file
-j = json.dumps(d)
-f = open('sample.json', 'w')
-print(j, file=f)
-f.close()
+def output_json(d) :
+	j = json.dumps(d)
+	f = open('current.json', 'w')
+	print(j, file = f)
+	f.close()
+
+def main(url):
+	soup = get_soup(url)
+	output_json(parse_soup(soup))
