@@ -9,50 +9,63 @@ import os
 
 def get_data_file() :
     current_dir = os.path.abspath(os.path.dirname(__file__))
-    filename = os.path.join(current_dir, "../..", "data")
+    filename = os.path.join(current_dir, "../..", "data2")
     return filename
 
-def get_sources(c) :
-    newsapi = NewsApiClient(api_key='e74ca84a910749b08b7e34aca0e12ee3')
-    sources = newsapi.get_sources(country = c)
-    sources = sources['sources']
-    for s in sources :
-        aSources.append(s)
+def get_sources():
+    with open('sources1.json') as json_data:
+        d = json.load(json_data)
+    array = []
+    for source in d['sources']:
+        array.append(source['id'])
+    return array
 
-def get_data(c) :
-    # Init
-    newsapi = NewsApiClient(api_key='e74ca84a910749b08b7e34aca0e12ee3')
-    # /v2/sources
-    sources = newsapi.get_sources(country = c)
-    sources = sources['sources']
-    arraySources = []
-    arrayURL = []
-    for source in sources :
-        arraySources.append(source['id'])
-        arrayURL.append(source['url'])
-    dataPath = get_data_file()
-    counter = 0
-    for s in arraySources :
-        print("Getting articles for source : {}".format(counter))
-        counter += 1
-        jsonSource = newsapi.get_everything(sources = s)
-        articles = jsonSource['articles']
-        url = dataPath + "/"+ s + '.json'
-        with open(url, 'w') as outfile:
-            json.dump(jsonSource, outfile)
+newsapi = NewsApiClient(api_key='019c4c70f26a468cb615b451b40f6d30')
 
-aSources = []
+def get_urls(articles) :
+    array = []
+    for art in articles :
+        array.append(art['url'])
+    return array
+
+def get_data(source):
+    array = []
+    dates = [
+        ['2018-10-18', '2018-10-20'],
+        ['2018-10-20', '2018-10-24'],
+        ['2018-10-25', '2018-10-30'],
+        ['2018-10-30', '2018-11-04'],
+        ['2018-11-08', '2018-11-12'],
+        ['2018-11-13', '2018-11-17']]
+    for date in dates :
+        articles = newsapi.get_everything(
+            sources=source,
+            from_param=date[0],
+            to=date[1],
+            language='en',
+        )
+        temp = get_urls(articles['articles'])
+        for t in temp :
+            array.append(t)
+    return array
+
+def create_json(data, source) :
+    r = dict(source = source, urls = data)
+    path = get_data_file()
+    with open(os.path.join(path, source + '.json'), 'w') as fp:
+        json.dump(r, fp)
 
 def main() :
-    countries = ['us', 'au', 'ca', 'nz', 'gb']
-    for c in countries :
-        print("getting data for country : ".format(c))
-        # get_data(c)
-        get_sources(c)
-    return dict(sources = aSources)
+    sources = get_sources()
+    counter = 0
+    sources = sources[80:]
+    for s in sources :
+        array = get_data(s)
+        counter += len(array)
+        create_json(array, s)
+    print("Total number of url's : {}".format(counter))
+    # print(sources)
 
 
 if __name__ == "__main__" :
-    dict = main()
-    with open('sources1.json', 'w') as outfile :
-        json.dump(dict, outfile)
+    main()

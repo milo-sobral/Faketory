@@ -4,8 +4,19 @@ import requests
 
 # https://newsapi.org/v2/everything?sources=abc-news&apiKey=279f7ab6ee464ec38f52a95f14f79c5d
 
+# import requests
 
+# url = ('https://newsapi.org/v2/everything?'
+       # 'apiKey=e74ca84a910749b08b7e34aca0e12ee3')
+
+# response = requests.get(url)
+#
+# print r.json
 
 url = ('https://newsapi.org/v2/everything?sources=abc-news-au&apiKey=e74ca84a910749b08b7e34aca0e12ee3')
 response = requests.get(url)
+print(response.json()['totalResults'])
 print(len(response.json()['articles']))
+
+('https://newsapi.org/v2/everything?sources=c-news-au&apiKey=e74ca84a910749b08b7e34aca0e12ee3')
+('https://newsapi.org/v2/everything?sources=&apiKey=e74ca84a910749b08b7e34aca0e12ee3')
