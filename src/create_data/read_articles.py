@@ -44,9 +44,12 @@ def output_json(d, source, counter):
         json.dump(d, fp)
 
 def parse_one_article(url, source, counter):
-	soup = get_soup(url)
-	d = parse_soup(soup)
-	output_json(d, source, counter)
+    try :
+    	soup = get_soup(url)
+    	d = parse_soup(soup)
+    	output_json(d, source, counter)
+    except :
+        return
 
 def parse_one_source(urls, source) :
     counter = 0
